@@ -4,7 +4,7 @@
 //
 //  Created by Johan Karlsson on 2023-05-04.
 //
-
+// did everything in the view this time all my code dissapeared when i branched off so this time its not mvc
 import SwiftUI
 import CoreData
 
@@ -83,26 +83,26 @@ struct HabitListView: View {
             }
         }
     private func updateHabit(_ habit: Habit) {
-        habit.doneToday = !habit.doneToday // Uppdatera doneToday-attributet
-        saveContext() // Spara ändringarna till Core Data
+        habit.doneToday = !habit.doneToday // Updates done today
+        saveContext() // saves to Core Data
     }
     
     func calculateStreak(completionDates: [Date]) -> Int {
-        let sortedDates = completionDates.sorted(by: >) // Sortera listan i fallande ordning
+        let sortedDates = completionDates.sorted(by: >) //sorts list
         var streak = 0
         var previousDate: Date?
         
         for date in sortedDates {
             if let previous = previousDate {
                 let components = Calendar.current.dateComponents([.day], from: date, to: previous)
-                if components.day == 1 { // Om datumet är dagen efter det föregående datumet, öka streak
+                if components.day == 1 { //increases streak
                     streak += 1
-                } else if components.day! > 1 { // Om det finns en daglängd mellan datum, bryt streak
+                } else if components.day! > 1 { // deletes streak
                     break
                 }
             }
             previousDate = date
-            streak += 1 // Öka streak även för första datumet i listan
+            streak += 1 // increases streak first day
         }
         
         return streak
@@ -151,7 +151,7 @@ struct HabitListView: View {
                     }
                     
                     habitName = ""
-                    isPresented = false // stänger AddHabitView
+                    isPresented = false // closes view
                 }
             }
         }
