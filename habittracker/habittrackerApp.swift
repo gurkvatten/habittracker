@@ -6,15 +6,21 @@
 //
 
 import SwiftUI
-
+import CoreData
 @main
 struct habittrackerApp: App {
     let persistenceController = PersistenceController.shared
+    var habitListController: HabitListController
+    
+    init() {
+        habitListController = HabitListController(persistentContainer: persistenceController.container)
+    }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HabitListView(controller: habitListController)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                
         }
     }
 }
